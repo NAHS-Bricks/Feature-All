@@ -58,14 +58,14 @@ void NahsBricksFeatureAll::deliver(JsonDocument* out_json) {
     // check if brick has just start up
     if (!RTCmem.isValid()) {
         if (!out_json->containsKey("y")) out_json->createNestedArray("y");
-        JsonArray y_array = out_json->getMember("y").as<JsonArray>();
+        JsonArray y_array = out_json->operator[]("y").as<JsonArray>();
         y_array.add("i");
     }
 
     // if allwaysOverrideDelay is set; inform BrickServer about this
     if (FSdata["aod"].as<bool>()) {
         if (!out_json->containsKey("y")) out_json->createNestedArray("y");
-        JsonArray y_array = out_json->getMember("y").as<JsonArray>();
+        JsonArray y_array = out_json->operator[]("y").as<JsonArray>();
         y_array.add("d");
     }
 
@@ -89,13 +89,13 @@ void NahsBricksFeatureAll::deliver(JsonDocument* out_json) {
     // check if brickType is requested
     if (RTCdata->brickTypeRequested) {
         RTCdata->brickTypeRequested = false;
-        out_json->getOrAddMember("x").set(_brickType);
+        out_json->operator[]("x").set(_brickType);
     }
 
     // check if defaultDelay is requested
     if (RTCdata->defaultDelayRequested) {
         RTCdata->defaultDelayRequested = false;
-        out_json->getOrAddMember("d").set(FSdata["delay"].as<uint16_t>());
+        out_json->operator[]("d").set(FSdata["delay"].as<uint16_t>());
     }
 
     yield();
@@ -115,7 +115,7 @@ void NahsBricksFeatureAll::feedback(JsonDocument* in_json) {
 
     // evaluate requests
     if (in_json->containsKey("r")) {
-        for (JsonVariant value : in_json->getMember("r").as<JsonArray>()) {
+        for (JsonVariant value : in_json->operator[]("r").as<JsonArray>()) {
             switch(value.as<uint8_t>()) {
                 case 1:
                     RTCdata->versionsRequested = true;
@@ -131,7 +131,7 @@ void NahsBricksFeatureAll::feedback(JsonDocument* in_json) {
 
     // check if new delay value is delivered
     if (in_json->containsKey("d")) {
-        RTCdata->delay = in_json->getMember("d").as<uint16_t>();
+        RTCdata->delay = in_json->operator[]("d").as<uint16_t>();
     }
 
     yield();

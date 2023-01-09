@@ -1,12 +1,12 @@
 {
   "name": "nahs-Bricks-Feature-All",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "description": "Implements the feature All for NAHS-Bricks which ties all other features together.",
   "keywords": "NAHS-Bricks, feature",
   "repository":
   {
     "type": "git",
-    "url": "git@github.com:NAHS-Bricks/Feature-All.git"
+    "url": "https://github.com/NAHS-Bricks/Feature-All.git"
   },
   "authors":
   [
